@@ -1,0 +1,52 @@
+# ── macOS ────────────────────────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+
+# ── Xcode: user-specific state ───────────────────────────────────────────
+# Window positions, breakpoints, which scheme you had selected. Changes on
+# every launch and is personal to your machine — never worth committing.
+xcuserdata/
+*.xcuserstate
+*.xcuserdatad/
+*.xcscmblueprint
+*.xccheckout
+
+# ── Xcode: build output ──────────────────────────────────────────────────
+build/
+DerivedData/
+*.moved-aside
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# ── Swift Package Manager ────────────────────────────────────────────────
+.build/
+.swiftpm/
+Package.resolved
+
+# ── Recorded sensor data ─────────────────────────────────────────────────
+# Training CSVs are large, binary-ish, and regenerated from the watch — git
+# handles them badly. Keep them backed up outside the repo.
+*.csv
+Recordings/
+recordings/
+*.xcappdata
+
+# ── Create ML ────────────────────────────────────────────────────────────
+# The project bundle holds full training-data copies and every model source.
+*.mlproj/
+# Compiled model output — generated from the .mlmodel at build time.
+*.mlmodelc/
+
+# NOTE: aictive5class.mlmodel IS committed on purpose. The app won't build
+# without it, and pairing a model version with the code that consumes it
+# matters — ActivityDetector hardcodes its window size and channel order.
+
+# ── Agent tooling ────────────────────────────────────────────────────────
+.claude/
+.agents/
+skills-lock.json
