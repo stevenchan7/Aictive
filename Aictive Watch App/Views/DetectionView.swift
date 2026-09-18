@@ -23,11 +23,21 @@ struct DetectionView: View {
                     .font(.system(.title3, design: .rounded).weight(.semibold))
                     .contentTransition(.opacity)
 
-                Text(vm.detector.activity == nil
-                     ? "\(ActivityDetector.windowSize / 50)s window"
-                     : vm.detector.confidence.formatted(.percent.precision(.fractionLength(0))))
-                    .font(.caption2)
-                    .foregroundStyle(.secondary)
+                if vm.detector.reps.isCountable {
+                    Text("\(vm.detector.reps.reps)")
+                        .font(.system(size: 40, weight: .semibold, design: .rounded))
+                        .foregroundStyle(.primary)
+                        .contentTransition(.numericText())
+                    Text("^[\(vm.detector.reps.reps) rep](inflect: true)")
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
+                } else {
+                    Text(vm.detector.activity == nil
+                         ? "\(ActivityDetector.windowSize / 50)s window"
+                         : vm.detector.confidence.formatted(.percent.precision(.fractionLength(0))))
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
+                }
 
                 Button("Stop") { vm.stop() }
                     .buttonStyle(.bordered)

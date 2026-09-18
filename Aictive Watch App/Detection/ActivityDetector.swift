@@ -27,6 +27,9 @@ final class ActivityDetector {
     private(set) var activity: String?
     private(set) var confidence: Double = 0
     private(set) var windowsProcessed = 0
+
+    /// Counts reps from the same stream, using whichever label is current.
+    let reps = RepCounter()
     private(set) var errorMessage: String?
 
     /// Samples accumulated toward the next prediction. Non-overlapping: the
@@ -52,6 +55,7 @@ final class ActivityDetector {
     }
 
     func reset() {
+        reps.reset()
         window.removeAll(keepingCapacity: true)
         activity = nil
         confidence = 0
@@ -60,6 +64,10 @@ final class ActivityDetector {
     }
 
     func consume(_ sample: MotionSample) {
+        // Reps are counted per sample, not per window — a 3-second window would
+        // be far too coarse to catch the turning point of a rep.
+        reps.consume(sample, activity: activity)
+
         window.append(sample)
         guard window.count == Self.windowSize else { return }
         runModel(on: window)

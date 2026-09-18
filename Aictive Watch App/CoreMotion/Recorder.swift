@@ -43,6 +43,13 @@ extension MotionSample {
                                "gravX", "gravY", "gravZ",
                                "roll", "pitch"]          // yaw excluded: drifts
 
+    /// Overall rotation rate, independent of which way the wrist is facing.
+    /// The clearest rep signal for exercises where the arm sweeps rather than
+    /// tilts — seated row, for instance.
+    var gyroMagnitude: Double {
+        (rotX * rotX + rotY * rotY + rotZ * rotZ).squareRoot()
+    }
+
     var features: [Double] {
         [accelX, accelY, accelZ, rotX, rotY, rotZ, gravX, gravY, gravZ, roll, pitch]
     }
